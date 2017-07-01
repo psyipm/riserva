@@ -1,5 +1,7 @@
 module Riserva::Commands
   class CreateArchive < ApplicationCommand
+    attr_reader :archive_name
+
     def initialize(path)
       @path = Pathname.new(path)
     end
@@ -8,9 +10,7 @@ module Riserva::Commands
       return broadcast(:invalid) unless valid?
 
       if create_archive
-        calculate_hash
-
-        broadcast(:ok)
+        broadcast(:ok, @archive_name)
       else
         broadcast(:failed)
       end
@@ -24,11 +24,6 @@ module Riserva::Commands
 
     def create_archive
       system("tar cjf #{archive_name} -C #{@path.parent} #{@path.basename}")
-    end
-
-    def calculate_hash
-      md5sum = Digest::MD5.hexdigest(File.read(archive_name))
-      system("echo #{md5sum} > #{archive_name}.md5sum")
     end
 
     def archive_name
