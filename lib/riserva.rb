@@ -10,6 +10,11 @@ module Riserva
     autoload :CreateArchive, 'riserva/commands/create_archive'
   end
 
+  module Listeners
+    autoload :ApplicationListener, 'riserva/listeners/application_listener'
+    autoload :CreateArchive, 'riserva/listeners/create_archive'
+  end
+
   module Storage
     autoload :ApplicationStorage, 'riserva/storage/application_storage'
     autoload :Dropbox, 'riserva/storage/dropbox'

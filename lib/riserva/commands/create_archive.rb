@@ -2,35 +2,39 @@ module Riserva::Commands
   class CreateArchive < ApplicationCommand
     attr_reader :archive_name
 
-    def initialize(path)
-      @path = Pathname.new(path)
+    def initialize(path = nil)
+      build_path(path)
+      subscribe(Riserva::Listeners::CreateArchive.new)
     end
 
-    def call
+    def call(path = nil)
+      build_path(path)
       return broadcast(:invalid) unless valid?
 
-      if create_archive
-        broadcast(:ok, @archive_name)
-      else
-        broadcast(:failed)
-      end
+      file = archive_name
+
+      create_archive(file) ? broadcast(:ok, file) : broadcast(:failed)
     end
 
     private
+
+    def build_path(path = nil)
+      @path = Pathname.new(path) unless path.nil?
+    end
 
     def valid?
       @path.directory?
     end
 
-    def create_archive
-      system("tar cjf #{archive_name} -C #{@path.parent} #{@path.basename}")
+    def create_archive(file)
+      system("tar cjf #{file} -C #{@path.parent} #{@path.basename}")
     end
 
     def archive_name
       time_prefix = Time.now.getlocal.strftime('%Y%m%d_%H%M')
       filename = @path.basename.to_s.downcase
 
-      @archive_name ||= File.join(archive_location, "#{time_prefix}_#{filename}.tar.bz2")
+      File.join(archive_location, "#{time_prefix}_#{filename}.tar.bz2")
     end
 
     def archive_location
