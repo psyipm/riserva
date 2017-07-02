@@ -12,6 +12,7 @@ module Riserva
   end
 
   module Storage
+    autoload :ApplicationStorage, 'riserva/storage/application_storage'
     autoload :Dropbox, 'riserva/storage/dropbox'
     autoload :GoogleDrive, 'riserva/storage/google_drive'
   end

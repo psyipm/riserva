@@ -2,17 +2,17 @@ require 'dropbox_content_hasher'
 
 module Riserva::Commands
   class CalculateChecksum < ApplicationCommand
-    attr_reader :checksum_path, :checksum
+    attr_reader :file_path, :checksum_path, :checksum
 
-    def initialize(path)
-      @path = Pathname.new(path)
+    def initialize(file_path)
+      @file_path = Pathname.new(file_path)
     end
 
     def call
       return broadcast(:invalid) unless valid?
 
       if calculate_checksum
-        broadcast(:ok, self)
+        broadcast(:ok, files)
       else
         broadcast(:failed)
       end
@@ -20,13 +20,17 @@ module Riserva::Commands
 
     private
 
+    def files
+      [@file_path, @checksum_path]
+    end
+
     def valid?
-      @path.file?
+      @file_path.file?
     end
 
     def calculate_checksum
-      @checksum = DropboxContentHasher.calculate(@path)
-      @checksum_path = "#{@path}.checksum"
+      @checksum = DropboxContentHasher.calculate(@file_path)
+      @checksum_path = "#{@file_path}.checksum"
       system("echo #{@checksum} > #{@checksum_path}")
     end
   end
