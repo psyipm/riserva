@@ -7,7 +7,6 @@ module Riserva
 
   module Commands
     autoload :ApplicationCommand, 'riserva/commands/application_command'
-    autoload :CalculateChecksum, 'riserva/commands/calculate_checksum'
     autoload :CreateArchive, 'riserva/commands/create_archive'
   end
 
