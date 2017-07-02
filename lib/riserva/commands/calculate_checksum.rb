@@ -1,6 +1,8 @@
+require 'dropbox_content_hasher'
+
 module Riserva::Commands
   class CalculateChecksum < ApplicationCommand
-    attr_reader :checksum_path, :md5sum
+    attr_reader :checksum_path, :checksum
 
     def initialize(path)
       @path = Pathname.new(path)
@@ -23,9 +25,9 @@ module Riserva::Commands
     end
 
     def calculate_checksum
-      @md5sum = Digest::MD5.hexdigest(File.read(@path))
-      @checksum_path = "#{@path}.md5sum"
-      system("echo #{@md5sum} > #{@checksum_path}")
+      @checksum = DropboxContentHasher.calculate(@path)
+      @checksum_path = "#{@path}.checksum"
+      system("echo #{@checksum} > #{@checksum_path}")
     end
   end
 end
