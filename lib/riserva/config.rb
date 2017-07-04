@@ -21,6 +21,17 @@ module Riserva
       config.dig(*keys)
     end
 
+    def self.folders
+      read('folders').each { |folder| yield Pathname.new(folder) }
+    end
+
+    def self.storages
+      read('storage').keys.each do |storage|
+        klass = "Riserva::Storage::#{storage.camelize}"
+        yield(klass.safe_constantize.new) unless klass.nil?
+      end
+    end
+
     private
 
     def config
