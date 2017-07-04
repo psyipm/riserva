@@ -1,26 +1,13 @@
 module Riserva::Commands
-  class CreateArchive < ApplicationCommand
-    attr_reader :archive_name
-
-    def initialize(path = nil)
-      build_path(path)
-      subscribe(Riserva::Listeners::CreateArchive.new)
-    end
-
-    def call(path = nil)
-      build_path(path)
-      return broadcast(:invalid) unless valid?
+  class CreateArchive < ProcessFile
+    def call(path)
+      return broadcast(:invalid) unless super
 
       file = archive_name
-
       create_archive(file) ? broadcast(:ok, file) : broadcast(:failed)
     end
 
     private
-
-    def build_path(path = nil)
-      @path = Pathname.new(path) unless path.nil?
-    end
 
     def valid?
       @path.directory?

@@ -8,9 +8,11 @@ module Riserva
 
   module Commands
     autoload :ApplicationCommand, 'riserva/commands/application_command'
+    autoload :Backup, 'riserva/commands/backup'
     autoload :CreateArchive, 'riserva/commands/create_archive'
 
     autoload :ProcessFile, 'riserva/commands/process_file'
+    autoload :PushToCloud, 'riserva/commands/push_to_cloud'
     autoload :UploadFile, 'riserva/commands/upload_file'
   end
 

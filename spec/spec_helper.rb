@@ -2,6 +2,9 @@
 
 require 'bundler/setup'
 require 'riserva'
+require 'wisper/rspec/matchers'
+
+ENV['RISERVA_CONFIG'] = 'spec/mocks/config/riserva.yml'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -9,6 +12,8 @@ RSpec.configure do |config|
 
   # Disable RSpec exposing methods globally on `Module` and `main`
   config.disable_monkey_patching!
+
+  config.include(Wisper::RSpec::BroadcastMatcher)
 
   config.expect_with :rspec do |c|
     c.syntax = :expect

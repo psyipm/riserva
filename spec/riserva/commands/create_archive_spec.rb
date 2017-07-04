@@ -3,7 +3,6 @@ require 'spec_helper'
 RSpec.describe Riserva::Commands::CreateArchive do
   let(:command) { described_class.new }
   let(:tmpdir) { mktmpdir }
-  let(:listener) { command.listeners.first }
 
   def mktmpdir
     Pathname.new(Dir.mktmpdir)
@@ -15,8 +14,7 @@ RSpec.describe Riserva::Commands::CreateArchive do
 
   it 'should create archive with valid location' do
     command.call(tmpdir)
-
-    expect(listener.files.first).to match("#{tmpdir.basename}.tar.bz2")
+    expect(command.files.first).to match("#{tmpdir.basename}.tar.bz2")
   end
 
   it 'should store a list of created files' do
@@ -25,9 +23,9 @@ RSpec.describe Riserva::Commands::CreateArchive do
 
     dirs.each { |dir| command.call(dir) }
 
-    expect(listener.files.uniq.count).to eq 3
+    expect(command.files.count).to eq 3
     dirs.each do |dir|
-      files = listener.files.grep Regexp.new(dir.basename.to_s)
+      files = command.files.grep Regexp.new(dir.basename.to_s)
       expect(files.count).to eq 1
     end
   end
