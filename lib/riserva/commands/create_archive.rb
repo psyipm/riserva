@@ -1,5 +1,5 @@
 module Riserva::Commands
-  class CreateArchive < ProcessFile
+  class CreateArchive < ApplicationCommand
     def call(path)
       return broadcast(:invalid) unless super
 

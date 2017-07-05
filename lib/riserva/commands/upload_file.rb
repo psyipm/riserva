@@ -1,5 +1,5 @@
 module Riserva::Commands
-  class UploadFile < ProcessFile
+  class UploadFile < ApplicationCommand
     def initialize(storage)
       super()
       @storage = storage

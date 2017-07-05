@@ -1,3 +1,3 @@
 module Riserva::Listeners
-  class CreateArchive < ProcessFile; end
+  class CreateArchive < ApplicationListener; end
 end

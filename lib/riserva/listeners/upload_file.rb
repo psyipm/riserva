@@ -1,3 +1,3 @@
 module Riserva::Listeners
-  class UploadFile < ProcessFile; end
+  class UploadFile < ApplicationListener; end
 end
