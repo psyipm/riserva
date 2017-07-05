@@ -4,7 +4,7 @@ require 'safe_yaml'
 
 module Riserva
   class Config
-    DEFAULT_PATH = '~/.riserva/config.yml'
+    DEFAULT_PATH = 'config/riserva.yml'
 
     def initialize
       SafeYAML::OPTIONS[:default_mode] = :safe

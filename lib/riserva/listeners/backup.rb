@@ -1,3 +1,5 @@
+require 'notifier'
+
 module Riserva::Listeners
   class Backup < ApplicationListener
     def initialize
@@ -15,7 +17,12 @@ module Riserva::Listeners
     private
 
     def notify(message)
-      system("notify-send --icon=media-floppy-symbolic --expire-time=10000 'Riserva' '#{message}'")
+      return unless enabled?
+      Notifier.notify(image: 'media-floppy-symbolic', title: 'Riserva', message: message)
+    end
+
+    def enabled?
+      Riserva::Config.read('system_notifications')
     end
   end
 end

@@ -1,0 +1,13 @@
+storage_location: '/tmp/doesntexist'
+
+folders:
+  - '~/Documents'
+  - '~/Downloads'
+  - '~/Pictures'
+
+storage:
+  google_drive:
+    secrets: 'config/google_drive_secrets.json'
+
+  dropbox:
+    secrets: 'config/dropbox_secrets.json'
