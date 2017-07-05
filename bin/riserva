@@ -4,22 +4,17 @@ require 'riserva'
 require 'riserva/command_line'
 
 class RiservaExecutable
+  def initialize
+    ENV['RISERVA_CONFIG'] ||= Choice[:config]
+  end
+
   def call
     case Choice[:perform]
-    when 'backup' then backup
+    when 'backup' then
+      Riserva::Commands::Backup.new.call
     end
-  end
-
-  def backup
-    notify('Riserva', 'Starting backup...')
-
-    Riserva::Commands::Backup.new.call do |c|
-      c.on(:ok) { notify('Riserva', 'Backup successfully completed') }
-      c.on(:invalid, :failed) { notify('Riserva', 'Backup failed') }
-    end
-  end
-
-  def notify(title, message)
-    system("notify-send --icon=media-floppy-symbolic --expire-time=5000 #{title} #{message}")
   end
 end
+
+riserva = RiservaExecutable.new
+riserva.call

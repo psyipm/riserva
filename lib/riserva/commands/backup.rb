@@ -3,6 +3,7 @@ module Riserva::Commands
     attr_reader :uploaders
 
     def initialize
+      super
       @uploaders = {}
     end
 

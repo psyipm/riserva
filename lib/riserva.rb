@@ -15,6 +15,7 @@ module Riserva
 
   module Listeners
     autoload :ApplicationListener, 'riserva/listeners/application_listener'
+    autoload :Backup, 'riserva/listeners/backup'
     autoload :CreateArchive, 'riserva/listeners/create_archive'
     autoload :UploadFile, 'riserva/listeners/upload_file'
   end
