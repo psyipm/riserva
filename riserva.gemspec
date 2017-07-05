@@ -18,8 +18,9 @@ Gem::Specification.new do |spec|
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
   end
-  spec.bindir        = 'exe'
-  spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
+  spec.bindir        = 'bin'
+  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
+  spec.executables << 'riserva'
   spec.require_paths = ['lib']
 
   spec.add_development_dependency 'bundler', '~> 1.14'
@@ -28,7 +29,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'guard-rspec', '~> 4.7', '>= 4.7.3'
   spec.add_development_dependency 'wisper-rspec', '~> 0.0.3'
 
-  spec.add_dependency 'activesupport', '>= 4.0'
+  spec.add_dependency 'activesupport', '~> 4.0'
+  spec.add_dependency 'choice', '~> 0.2.0'
   spec.add_dependency 'dropbox_api', '~> 0.1.7'
   spec.add_dependency 'dropbox_content_hasher', '~> 0.1.0'
   spec.add_dependency 'google_drive', '~> 2.1', '>= 2.1.5'

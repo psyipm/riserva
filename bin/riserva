@@ -1,0 +1,25 @@
+#!/usr/bin/env ruby
+
+require 'riserva'
+require 'riserva/command_line'
+
+class RiservaExecutable
+  def call
+    case Choice[:perform]
+    when 'backup' then backup
+    end
+  end
+
+  def backup
+    notify('Riserva', 'Starting backup...')
+
+    Riserva::Commands::Backup.new.call do |c|
+      c.on(:ok) { notify('Riserva', 'Backup successfully completed') }
+      c.on(:invalid, :failed) { notify('Riserva', 'Backup failed') }
+    end
+  end
+
+  def notify(title, message)
+    system("notify-send --icon=media-floppy-symbolic --expire-time=5000 #{title} #{message}")
+  end
+end
