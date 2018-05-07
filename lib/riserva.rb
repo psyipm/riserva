@@ -2,6 +2,7 @@
 
 require 'riserva/version'
 require 'active_support/core_ext/string/inflections'
+require 'pathname'
 
 module Riserva
   autoload :Config, 'riserva/config'

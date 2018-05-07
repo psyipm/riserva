@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'notifier'
 
 module Riserva::Listeners
@@ -18,11 +20,15 @@ module Riserva::Listeners
 
     def notify(message)
       return unless enabled?
-      Notifier.notify(image: 'media-floppy-symbolic', title: 'Riserva', message: message)
+      Notifier.notify(image: notification_icon, title: 'Riserva', message: message)
     end
 
     def enabled?
       Riserva::Config.read('system_notifications')
+    end
+
+    def notification_icon
+      Riserva::Config.read('notification_icon') || 'media-floppy-symbolic'
     end
   end
 end

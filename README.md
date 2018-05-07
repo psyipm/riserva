@@ -60,6 +60,9 @@ storage_location: '/home/user/backup'
 # Enable system notifications (if notification library installed in your OS)
 system_notifications: true
 
+# Set custom notification icon
+notification_icon: '/home/user/.riserva/icon.png'
+
 # Each folder will be compressed in separate archive
 folders:
   - '/home/user/some_important_folder_1'
