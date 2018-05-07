@@ -19,7 +19,6 @@ Gem::Specification.new do |spec|
     f.match(%r{^(test|spec|features)/})
   end
   spec.bindir        = 'bin'
-  spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.executables << 'riserva'
   spec.require_paths = ['lib']
 
