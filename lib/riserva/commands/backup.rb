@@ -35,6 +35,8 @@ module Riserva::Commands
     end
 
     def upload_file(storage, file)
+      Riserva.logger.info("Uploading file #{file} to #{storage.title}...")
+
       uploader(storage).call(file)
     end
 

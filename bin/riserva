@@ -17,4 +17,10 @@ class RiservaExecutable
 end
 
 riserva = RiservaExecutable.new
-riserva.call
+
+begin
+  riserva.call
+rescue StandardError => error
+  Riserva.logger.fatal(error.message)
+  Riserva.logger.debug(error.backtrace.join("\n"))
+end

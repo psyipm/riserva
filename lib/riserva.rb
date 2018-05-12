@@ -6,6 +6,7 @@ require 'pathname'
 
 module Riserva
   autoload :Config, 'riserva/config'
+  autoload :Log, 'riserva/log'
 
   module Commands
     autoload :ApplicationCommand, 'riserva/commands/application_command'
@@ -25,5 +26,9 @@ module Riserva
     autoload :ApplicationStorage, 'riserva/storage/application_storage'
     autoload :Dropbox, 'riserva/storage/dropbox'
     autoload :GoogleDrive, 'riserva/storage/google_drive'
+  end
+
+  def self.logger
+    Riserva::Log.new.logger
   end
 end

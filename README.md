@@ -69,6 +69,10 @@ folders:
   - '/home/user/some_important_folder_2'
   - '/home/user/some_important_folder_3'
 
+# Log settings
+log:
+  filename: '/home/user/.riserva/riserva.log'
+
 # Storage configuration. Multiple storage providers supported simultaneously.
 storage:
   google_drive:

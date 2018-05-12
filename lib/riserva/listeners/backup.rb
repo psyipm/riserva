@@ -6,6 +6,7 @@ module Riserva::Listeners
   class Backup < ApplicationListener
     def initialize
       notify('Starting backup...')
+      Riserva.logger.info('Starting backup...')
     end
 
     def ok
