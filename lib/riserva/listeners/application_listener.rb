@@ -14,8 +14,8 @@ module Riserva::Listeners
       Riserva.logger.info(progname) { "OK: #{file}" }
     end
 
-    def failed
-      Riserva.logger.error(progname) { 'Failed' }
+    def failed(file = nil)
+      Riserva.logger.error(progname) { ['Failed', file].compact.join(': ') }
     end
 
     protected
