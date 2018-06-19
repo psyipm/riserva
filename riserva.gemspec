@@ -33,6 +33,5 @@ Gem::Specification.new do |spec|
   spec.add_runtime_dependency 'dropbox_content_hasher', '~> 0.1.0'
   spec.add_runtime_dependency 'google_drive', '~> 2.1', '>= 2.1.5'
   spec.add_runtime_dependency 'notifier', '~> 0.5.2'
-  spec.add_runtime_dependency 'safe_yaml', '~> 1.0', '>= 1.0.4'
   spec.add_runtime_dependency 'wisper', '~> 2.0'
 end

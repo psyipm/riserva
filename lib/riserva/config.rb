@@ -1,14 +1,12 @@
 # frozen_string_literal: true
 
-require 'safe_yaml'
+require 'yaml'
 
 module Riserva
   class Config
     DEFAULT_PATH = 'config/riserva.yml'
 
     def initialize
-      SafeYAML::OPTIONS[:default_mode] = :safe
-
       @path = ENV['RISERVA_CONFIG'] || DEFAULT_PATH
     end
 
