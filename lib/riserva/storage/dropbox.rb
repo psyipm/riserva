@@ -26,6 +26,16 @@ module Riserva::Storage
       data.content_hash == checksum
     end
 
+    def clean
+      return unless time_to_keep
+
+      session.list_folder('').entries.each do |file|
+        next unless file.client_modified < time_to_keep.ago
+
+        session.delete file.path_lower
+      end
+    end
+
     private
 
     def session

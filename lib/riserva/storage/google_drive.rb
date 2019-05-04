@@ -20,6 +20,14 @@ module Riserva::Storage
       file.md5_checksum == checksum
     end
 
+    def clean
+      return unless time_to_keep
+
+      session.files.each do |file|
+        file.delete if file.created_time < time_to_keep.ago
+      end
+    end
+
     private
 
     def session

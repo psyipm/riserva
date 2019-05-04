@@ -17,5 +17,12 @@ module Riserva::Storage
     def config_secrets
       Riserva::Config.read([:storage, title, :secrets].join('.'))
     end
+
+    def time_to_keep
+      value = Riserva::Config.read([:storage, title, :days_to_keep].join('.'))
+      return unless value
+
+      value.days
+    end
   end
 end

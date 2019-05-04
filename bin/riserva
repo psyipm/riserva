@@ -12,6 +12,8 @@ class RiservaExecutable
     case Choice[:perform]
     when 'backup' then
       Riserva::Commands::Backup.new.call
+    when 'clean' then
+      Riserva::Commands::Clean.new.call
     end
   end
 end

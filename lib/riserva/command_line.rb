@@ -4,8 +4,8 @@ Choice.options do
   option :perform do
     short '-p'
     long '--perform=OPERATION'
-    desc 'Operation to perform, valid options: backup (default)'
-    valid %w[backup]
+    desc 'Operation to perform, valid options: backup (default), clean'
+    valid %w[backup clean]
     default 'backup'
   end
 

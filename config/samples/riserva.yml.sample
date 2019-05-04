@@ -8,6 +8,8 @@ folders:
 storage:
   google_drive:
     secrets: 'config/google_drive_secrets.json'
+    days_to_keep: 30
 
   dropbox:
     secrets: 'config/dropbox_secrets.json'
+    days_to_keep: 30
