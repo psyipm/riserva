@@ -12,6 +12,9 @@ module Riserva::Commands
       push_to_cloud
 
       success? ? broadcast(:ok) : broadcast(:failed)
+    rescue StandardError => exception
+      broadcast(:failed)
+      raise exception
     end
 
     private
