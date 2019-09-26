@@ -10,9 +10,9 @@ class RiservaExecutable
 
   def call
     case Choice[:perform]
-    when 'backup' then
+    when 'backup'
       Riserva::Commands::Backup.new.call
-    when 'clean' then
+    when 'clean'
       Riserva::Commands::Clean.new.call
     end
   end

@@ -23,8 +23,8 @@ module Riserva::Storage
     def clean
       return unless time_to_keep
 
-      session.files.each do |file|
-        file.delete if file.created_time < time_to_keep.ago
+      session.files(q: ['createdTime < ?', time_to_keep.ago]).each do |file|
+        file.delete(true)
       end
     end
 
