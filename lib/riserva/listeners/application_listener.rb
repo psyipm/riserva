@@ -8,10 +8,18 @@ module Riserva::Listeners
       @files = Set.new
     end
 
+    def start(*args)
+      Riserva.logger.info(progname) { ['Starting', *args].join(': ') }
+    end
+
     def ok(file)
       @files << Pathname.new(file)
 
       Riserva.logger.info(progname) { "OK: #{file}" }
+    end
+
+    def invalid(message = nil)
+      Riserva.logger.debug(progname) { ['Invalid', message].compact.join(': ') }
     end
 
     def failed(file = nil)

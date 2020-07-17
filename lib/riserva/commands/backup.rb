@@ -1,49 +1,46 @@
+require 'parallel'
+
 module Riserva::Commands
   class Backup < ApplicationCommand
-    attr_reader :uploaders
+    MAX_THREADS = 5
 
     def initialize
       super
-      @uploaders = {}
     end
 
     def call
-      create_archives
-      push_to_cloud
+      perform
 
-      success? ? broadcast(:ok) : broadcast(:failed)
-    rescue StandardError => exception
+      broadcast(:ok)
+    rescue StandardError => e
       broadcast(:failed)
-      raise exception
+      raise e
     end
 
     private
 
-    def success?
-      @uploaders.values.map { |uploader| uploader.files == archivator.files }.all?
-    end
-
-    def create_archives
-      Riserva::Config.folders { |folder| archivator.call(folder) }
+    def perform
+      Parallel.map(Riserva::Config.folders, in_threads: MAX_THREADS) do |folder|
+        push_to_cloud archivator.call(folder).files
+      end
     end
 
     def archivator
       @archivator ||= Riserva::Commands::CreateArchive.new
     end
 
-    def push_to_cloud
-      Riserva::Config.storages do |storage|
-        archivator.files.each { |file| upload_file(storage, file) }
+    def push_to_cloud(files)
+      Riserva::Config.storages.each do |storage|
+        files.map { |file| upload_file(storage, file) }
       end
     end
 
     def upload_file(storage, file)
-      Riserva.logger.info("Uploading file #{file} to #{storage.title}...")
-
       uploader(storage).call(file)
     end
 
     def uploader(storage)
+      @uploaders ||= {}
       @uploaders[storage.title] ||= Riserva::Commands::UploadFile.new(storage)
     end
   end

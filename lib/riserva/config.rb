@@ -20,14 +20,14 @@ module Riserva
     end
 
     def self.folders
-      read('folders').each { |folder| yield Pathname.new(folder) }
+      read('folders').map { |folder| Pathname.new(folder) }
     end
 
     def self.storages
-      read('storage').keys.each do |storage|
+      read('storage').keys.map do |storage|
         klass = "Riserva::Storage::#{storage.camelize}"
-        yield(klass.safe_constantize.new) unless klass.nil?
-      end
+        klass.safe_constantize&.new
+      end.compact
     end
 
     private

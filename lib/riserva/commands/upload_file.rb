@@ -6,6 +6,7 @@ module Riserva::Commands
     end
 
     def call(path)
+      broadcast(:start, "file: #{path} to #{@storage.title}...")
       return broadcast(:invalid) unless super
 
       success? ? broadcast(:ok, @path) : broadcast(:failed, @path)

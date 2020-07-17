@@ -1,7 +1,8 @@
 module Riserva::Commands
   class CreateArchive < ApplicationCommand
     def call(path)
-      return broadcast(:invalid) unless super
+      broadcast(:start, "folder: #{path}")
+      return broadcast(:invalid, "`#{@path}` is not a directory") unless super
 
       file = archive_name
       create_archive(file) ? broadcast(:ok, file) : broadcast(:failed)

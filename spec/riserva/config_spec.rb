@@ -7,13 +7,13 @@ RSpec.describe Riserva::Config do
   end
 
   it 'should read folders' do
-    described_class.folders do |folder|
+    described_class.folders.each do |folder|
       expect(folder.is_a?(Pathname)).to eq true
     end
   end
 
   it 'should read storages' do
-    described_class.storages do |storage|
+    described_class.storages.each do |storage|
       expect(storage.is_a?(Riserva::Storage::ApplicationStorage)).to eq true
     end
   end
