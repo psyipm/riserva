@@ -8,8 +8,8 @@ module Riserva::Listeners
       Riserva.logger.info('OK')
     end
 
-    def failed
-      Riserva.logger.info('Failed')
+    def failed(storage)
+      Riserva.logger.info("Failed: #{storage.title}")
     end
 
     def start_cleaning(storage)

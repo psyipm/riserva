@@ -1,11 +1,21 @@
 module Riserva::Commands
   class Clean < ApplicationCommand
     def call
-      Riserva::Config.storages.each do |storage|
+      storages.each do |storage|
         broadcast(:start_cleaning, storage)
 
-        storage.clean
+        if storage.clean
+          broadcast(:ok)
+        else
+          broadcast(:failed, storage)
+        end
       end
+    end
+
+    private
+
+    def storages
+      Riserva::Config.storages
     end
   end
 end

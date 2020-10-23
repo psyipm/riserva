@@ -5,6 +5,8 @@ require 'riserva'
 require 'wisper/rspec/matchers'
 require 'mocks/fake_logger'
 
+require 'pry-byebug'
+
 ENV['RISERVA_CONFIG'] = 'spec/mocks/config/riserva.yml'
 
 RSpec.configure do |config|
