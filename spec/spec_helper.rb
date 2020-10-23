@@ -3,6 +3,7 @@
 require 'bundler/setup'
 require 'riserva'
 require 'wisper/rspec/matchers'
+require 'mocks/fake_logger'
 
 ENV['RISERVA_CONFIG'] = 'spec/mocks/config/riserva.yml'
 

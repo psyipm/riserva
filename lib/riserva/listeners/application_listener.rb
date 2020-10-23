@@ -12,10 +12,10 @@ module Riserva::Listeners
       Riserva.logger.info(progname) { ['Starting', *args].join(': ') }
     end
 
-    def ok(file)
+    def ok(file, *args)
       @files << Pathname.new(file)
 
-      Riserva.logger.info(progname) { "OK: #{file}" }
+      Riserva.logger.info(progname) { ["OK: #{file}", *args].join(': ') }
     end
 
     def invalid(message = nil)
@@ -29,7 +29,10 @@ module Riserva::Listeners
     protected
 
     def progname
-      self.class.name.split('::').last
+      command = self.class.name.split('::').last
+      worker = Parallel.worker_number.presence
+
+      [command, worker].compact.join(' ')
     end
   end
 end

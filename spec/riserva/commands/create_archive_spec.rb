@@ -1,4 +1,4 @@
-require 'spec_helper'
+# frozen_string_literal: true
 
 RSpec.describe Riserva::Commands::CreateArchive do
   let(:command) { described_class.new }

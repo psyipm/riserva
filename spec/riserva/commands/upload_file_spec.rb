@@ -1,4 +1,5 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
 require 'tempfile'
 
 RSpec.describe Riserva::Commands::UploadFile do

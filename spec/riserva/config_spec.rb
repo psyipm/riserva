@@ -1,4 +1,4 @@
-require 'spec_helper'
+# frozen_string_literal: true
 
 RSpec.describe Riserva::Config do
   it 'should config value by yaml path' do

@@ -31,7 +31,7 @@ Choice.options do
     long '--version'
     desc 'Show version'
     action do
-      puts "Riserva backup tool v#{Riserva::VERSION}"
+      puts Riserva.version
       exit
     end
   end

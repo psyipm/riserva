@@ -4,6 +4,7 @@ require 'riserva/version'
 require 'active_support/core_ext/string/inflections'
 require 'active_support/time'
 require 'pathname'
+require 'parallel'
 
 module Riserva
   autoload :Config, 'riserva/config'
@@ -33,5 +34,9 @@ module Riserva
 
   def self.logger
     Riserva::Log.new.logger
+  end
+
+  def self.version
+    "Riserva v#{Riserva::VERSION}"
   end
 end

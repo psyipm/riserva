@@ -9,7 +9,7 @@ module Riserva::Commands
       broadcast(:start, "file: #{path} to #{@storage.title}...")
       return broadcast(:invalid) unless super
 
-      success? ? broadcast(:ok, @path) : broadcast(:failed, @path)
+      success? ? broadcast(:ok, @path, @storage.title) : broadcast(:failed, @path)
     end
 
     private

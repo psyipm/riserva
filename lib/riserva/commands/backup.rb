@@ -1,5 +1,3 @@
-require 'parallel'
-
 module Riserva::Commands
   class Backup < ApplicationCommand
     MAX_THREADS = 5
@@ -20,7 +18,7 @@ module Riserva::Commands
     private
 
     def perform
-      Parallel.map(Riserva::Config.folders, in_threads: MAX_THREADS) do |folder|
+      Riserva::Config.folders.each do |folder|
         push_to_cloud archivator.call(folder).files
       end
     end
@@ -30,7 +28,7 @@ module Riserva::Commands
     end
 
     def push_to_cloud(files)
-      Riserva::Config.storages.each do |storage|
+      Parallel.map(Riserva::Config.storages, in_threads: MAX_THREADS) do |storage|
         files.map { |file| upload_file(storage, file) }
       end
     end
